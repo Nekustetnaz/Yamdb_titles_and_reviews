@@ -11,9 +11,9 @@ from rest_framework.permissions import (AllowAny, IsAuthenticated,
                                         IsAuthenticatedOrReadOnly)
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
-
 from reviews.models import Category, Genre, Review, Title
 from users.models import User
+
 from .filters import TitlesFilter
 from .pagination import UsersPagination
 from .permissions import (IsAdmin, IsAdminModeratorAuthorOrReadOnly,
@@ -93,6 +93,7 @@ def get_current_user(request):
             return Response(serializer.data)
         serializer.save()
         return Response(serializer.data)
+    return Response(serializer.errors, status=HTTPStatus.BAD_REQUEST)
 
 
 class UsersViewSet(viewsets.ModelViewSet):
