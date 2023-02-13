@@ -33,7 +33,7 @@ jobs:
     - name: Test with flake8 and django tests
       run: |
         # запуск проверки проекта по flake8
-        cd ..
+        #cd ..
         python -m flake8
         # перейти в папку, содержащую manage.py — 
         #<корневая_папка_infra_actions>/<папка_проекта>/manage.py
