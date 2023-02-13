@@ -1,4 +1,4 @@
-https://github.com/nekustetnaz/yamdb_final/actions/workflows/yamdb_workflow.yml/badge.svg
+![API for YaMDb project workflow](https://github.com/nekustetnaz/yamdb_final/actions/workflows/yamdb_workflow.yml/badge.svg)
 
 # Проект «YaMDb»
 ### Описание
