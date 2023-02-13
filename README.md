@@ -1,6 +1,7 @@
-![API for YaMDb project workflow](https://github.com/nekustetnaz/yamdb_final/actions/workflows/yamdb_workflow.yml/badge.svg)
-
 # Проект «YaMDb»
+
+![API for YaMDb project workflow](https://github.com/nekustetnaz/yamdb_final/actions/workflows/yamdb_workflow.yml/badge.svg?branch=master&event=push)
+
 ### Описание
 Проект YaMDb собирает отзывы (Review) пользователей на произведения (Title).
 Сами произведения в YaMDb не хранятся, здесь нельзя посмотреть фильм или послушать музыку.
