@@ -1,44 +1,38 @@
-# Проект «YaMDb»
+# «YaMDb» project
 
 ![API for YaMDb project workflow](https://github.com/nekustetnaz/yamdb_final/actions/workflows/yamdb_workflow.yml/badge.svg?branch=master&event=push)
 
-### Описание
-Проект YaMDb собирает отзывы (Review) пользователей на произведения (Title).
-Сами произведения в YaMDb не хранятся, здесь нельзя посмотреть фильм или послушать музыку.
-Произведения делятся на категории, такие как «Книги», «Фильмы», «Музыка».
-Список категорий может быть расширен (например, можно добавить категорию «Изобразительное искусство» или «Ювелирка»).
-Произведению может быть присвоен жанр из списка предустановленных (например, «Сказка», «Рок» или «Артхаус»).
-Добавлять произведения, категории и жанры может только администратор.
-Благодарные или возмущённые пользователи оставляют к произведениям текстовые отзывы и ставят произведению оценку в диапазоне от одного до десяти (целое число); из пользовательских оценок формируется усреднённая оценка произведения — рейтинг (целое число). На одно произведение пользователь может оставить только один отзыв.
-Пользователи могут оставлять комментарии к отзывам.
-Добавлять отзывы, комментарии и ставить оценки могут только аутентифицированные пользователи. 
+### Description
+The YaMDb project collects user reviews on titles.
+The titles are not stored in YaMDb, you cannot watch a movie or listen to music here.
+The titles are divided into categories such as "Books", "Movies", "Music".
+The list of categories can be expanded (for example, you can add the category "Fine Art" or "Jewelry").
+A title can be assigned a genre from the preset list (for example, "Fairy Tale", "Rock" or "Arthouse").
+Only an administrator can add titles, categories and genres.
+Grateful or outraged users add reviews for the titles and give it a rating in the range from one to ten; an average rating of the title is formed from user ratings. 
+User can add only one review for one title.
+Users can comment on reviews.
+Only authenticated users can add reviews, comments and ratings. 
 
-### Ресурсы API YaMDb
-- Ресурс auth: аутентификация.
-- Ресурс users: пользователи.
-- Ресурс titles: произведения, к которым пишут отзывы.
-- Ресурс categories: категории (типы) произведений. Одно произведение может быть привязано только к одной категории.
-- Ресурс genres: жанры произведений. Одно произведение может быть привязано к нескольким жанрам.
-- Ресурс reviews: отзывы на произведения. Отзыв привязан к определённому произведению.
-- Ресурс comments: комментарии к отзывам. Комментарий привязан к определённому отзыву.
+### API YaMDb services
+- Auth: authentication;
+- Users: users;
+- Titles: titles for reviews;
+- Categories: categories of the titles. One title can only be linked to one category;
+- Genres: genres of the titles. One title can be linked to several genres;
+- Reviews: reviews of the titles. The review is linked to a specific title;
+- Comments: comments on the reviews. The comment is linked to a specific review.
 
-### Пользовательские роли и права доступа
-- Аноним — может просматривать описания произведений, читать отзывы и комментарии.
-- Аутентифицированный пользователь (user) — может читать всё, как и Аноним, может публиковать отзывы и ставить оценки произведениям, может комментировать отзывы; может редактировать и удалять свои отзывы и комментарии, редактировать свои оценки произведений. Эта роль присваивается по умолчанию каждому новому пользователю.
-- Модератор (moderator) — те же права, что и у Аутентифицированного пользователя, плюс право удалять и редактировать любые отзывы и комментарии.
-- Администратор (admin) — полные права на управление всем контентом проекта. Может создавать и удалять произведения, категории и жанры. Может назначать роли пользователям.
-- Суперюзер Django должен всегда обладать правами администратора, пользователя с правами admin. Даже если изменить пользовательскую роль суперюзера — это не лишит его прав администратора. Суперюзер — всегда администратор, но администратор — не обязательно суперюзер.
+### User roles and access permissions
+- Not authenticated user — can read descriptions of the titles, reviews, and comments;
+- Authenticated user — can read everything, add reviews and rate titles, comment on reviews, edit and delete their reviews and comments, edit their ratings of titles. This role is assigned by default to each new user;
+- Moderator — the same permissions as an Authenticated User. Additionally can delete and edit any reviews and comments;
+- Admin — all permissions to manage all project content. Can create and delete titles, categories and genres. Can assign roles to users;
+- Supepuser Django must always have administrator permissions. A superuser is always an administrator, but an administrator is not necessarily a superuser.
 
-### Регистрация новых пользователей
-- Пользователь отправляет POST-запрос с параметрами email и username на эндпоинт /api/v1/auth/signup/.
-- Сервис YaMDB отправляет письмо с кодом подтверждения (confirmation_code) на указанный адрес email.
-- Пользователь отправляет POST-запрос с параметрами username и confirmation_code на эндпоинт /api/v1/auth/token/, в ответе на запрос ему приходит token (JWT-токен).
-- В результате пользователь получает токен и может работать с API проекта, отправляя этот токен с каждым запросом. 
-- После регистрации и получения токена пользователь может отправить PATCH-запрос на эндпоинт /api/v1/users/me/ и заполнить поля в своём профайле (описание полей — в документации).
-
-### Запуск проекта:
-Автоматизация развертывания ПО на серверах обеспечивается средой виртуализации Docker, а также инструментом Docker-compose. 
-Инструкция по развертыванию Docker-контейнера веб-приложения представлена в Dockerfile:
+### Run project:
+Automation of software deployment on servers is provided by the Docker virtualization environment as well as the Docker-compose tool.
+Instructions for deploying the Docker container of a web application are provided in the Dockerfile:
 ```
 FROM python:3.7-slim
 RUN mkdir /app
@@ -49,7 +43,7 @@ WORKDIR /app
 CMD ["gunicorn", "api_yamdb.wsgi:application", "--bind", "0:8000"]
 ```
 
-Инстукция для запуска всех контейнеров приложения указана в файле "docker-compose.yml":
+Instructions for launching all application containers are specified in the "docker-compose.yml" file:
 ```
 version: '3.8'
 
@@ -86,53 +80,60 @@ volumes:
   media_value:
 ```
 
-Шаблон наполнения перененными файла .env:
+Template for filling variables in the .env file:
 ```
-тип применямой базы данных
+# Database type
 DB_ENGINE=django.db.backends.postgresql
 
-имя базы данных
+# Database type
 DB_NAME=
 
-логин для подключения к базе данных
+# Login for connection to the database
 POSTGRES_USER=
 
-пароль для подключения к базе данных
+# Password for connection to the database
 POSTGRES_PASSWORD=
 
-имя контейнера
+# Database container name
 DB_HOST=
 
-порт для подключения к БД
+# Database container port
 DB_PORT=
 ```
 
-Для запуска проекта в контейнерах выполните команду:
+To run the project in containers, type the command:
 ```
 docker-compose up -d --build
 ```
 
-После окончания процесса сборки и запуска проекта следует выполнить миграции, создать суперюзера в собрать статику:
+After completing the build process and running the project, you should apply migrations, create a superuser, and collect static:
 ```
 docker-compose exec web python manage.py migrate
 docker-compose exec web python manage.py createsuperuser
 docker-compose exec web python manage.py collectstatic --no-input
 ```
 
-Для заполнения базы данных из .csv файла выполните команду:
+To fill in the database from a .csv file, type the command:
 ```
 docker-compose exec web python manage.py closepoll
 ```
 
-### Технологии
-Python 3
-Django
-Django REST Framework
-Docker
-Gunicorn
-nginx
-PostgreSQL
-Simple JWT
+### Sign up a new user
+- A user sends a POST request with an email and username parameters to the endpoint /api/v1/auth/signup/;
+- The YaMDB service sends an email with a confirmation code to the specified email address;
+- The user sends a POST request with the username and confirmation_code parameters to the endpoint /api/v1/auth/token/, in response to the request he receives a JWT token;
+- As a result, the user receives a token and can use the project API by sending this token in each request;
+- After signing up and receiving the token, the user can send a PATCH request to the endpoint /api/v1/users/me/ and fill in the fields in his profile.
 
-### Авторы проекта
-Антон Акулов - https://github.com/Nekustetnaz
+### Technologies
+Python 3 <br>
+Django <br>
+Django REST Framework <br>
+Docker <br>
+Gunicorn <br>
+nginx <br>
+PostgreSQL <br>
+Simple JWT <br>
+
+### Author
+Anton Akulov - https://github.com/Nekustetnaz
